@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-   private EditText usernameField,passwordField;
-   private TextView status,role,method;
+   private EditText usernameField,passwordField,firstNameField,lastNameField;
+   private TextView resultsView, createResultsView;
 
    @Override 
    protected void onCreate(Bundle savedInstanceState) {
@@ -19,29 +19,29 @@ public class MainActivity extends Activity {
       setContentView(R.layout.activity_main);
       usernameField = (EditText)findViewById(R.id.editText1);
       passwordField = (EditText)findViewById(R.id.editText2);
-      status = (TextView)findViewById(R.id.textView6);
-      role = (TextView)findViewById(R.id.textView7);
-      method = (TextView)findViewById(R.id.textView9);
+      firstNameField = (EditText)findViewById(R.id.firstNameField); 
+      lastNameField = (EditText)findViewById(R.id.lastNameField); 
+      resultsView = (TextView)findViewById(R.id.resultsView);
+      createResultsView = (TextView)findViewById(R.id.createResult);
    }
    @Override
    public boolean onCreateOptionsMenu(Menu menu) {
-      // Inflate the menu; this adds items to the action bar if it is present.
       getMenuInflater().inflate(R.menu.main, menu);
       return true;
    }
+
    public void login(View view){
       String username = usernameField.getText().toString();
       String password = passwordField.getText().toString();
-      method.setText("Get Method");
-      new LoginActivity(this,status,role,0).execute(username,password);
-
+      new LoginActivity(this,resultsView).execute(username,password);
    }
-   public void loginPost(View view){
-      String username = usernameField.getText().toString();
-      String password = passwordField.getText().toString();
-      method.setText("Post Method");
-      new LoginActivity(this,status,role,1).execute(username,password);
-
+  
+   public void createUser(View view) {
+	   String username = usernameField.getText().toString();
+	   String password = passwordField.getText().toString();
+	   String firstName = firstNameField.getText().toString(); 
+	   String lastName = lastNameField.getText().toString();
+	   new CreateUserActivity(this,createResultsView).execute(username,password,firstName,lastName); 
    }
 
 }
