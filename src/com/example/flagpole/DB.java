@@ -1,16 +1,15 @@
 package com.example.flagpole;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Application;
@@ -72,7 +71,8 @@ public class DB extends Application {
 		try{
 			String[] args = new String[6];
 			args[0] = "method"; args[1] = "validateUser"; 
-			args[2] = "email"; args[3] = email; args[4] = "password"; args[5] = password; 
+			args[2] = "email"; args[3] = email; 
+			args[4] = "password"; args[5] = password; 
 			String data = getDataString( args );
 			return Integer.parseInt(getResult(data)); 
          }
@@ -84,14 +84,37 @@ public class DB extends Application {
 		try{
 			String[] args = new String[10];
 			args[0] = "method"; args[1] = "createUser"; 
-			args[2] = "email"; args[3] = email; args[4] = "password"; args[5] = password; 
-			args[6] = "first_name"; args[7] = first_name; args[8] = "last_name"; args[9] = last_name; 
+			args[2] = "email"; args[3] = email; 
+			args[4] = "password"; args[5] = password; 
+			args[6] = "first_name"; args[7] = first_name; 
+			args[8] = "last_name"; args[9] = last_name; 
 			String data = getDataString( args );
 		//	System.out.println("data: " + data); 
 		//	System.out.println("result: " + getResult(data));
 			return Integer.parseInt(getResult(data)); 
          }
 		 catch(Exception e){
+            return 0;
+         }
+	}
+	
+	public static Integer createFlag (Integer user_id, String title, String content, Integer recipients, String img_url, Double latitude, Double longitude) {
+		try{
+			String[] args = new String[16];
+			args[0] = "method"; args[1] = "createFlag"; 
+			args[2] = "user_id"; args[3] = user_id.toString(); 
+			args[4] = "title"; args[5] = title; 
+			args[6] = "content"; args[7] = content; 
+			args[8] = "recipients"; args[9] = recipients.toString(); 
+			args[10] = "img_url"; args[11] = img_url;
+			args[12] = "latitude"; args[13] = latitude.toString();
+			args[14] = "longitude"; args[15] = longitude.toString();
+			String data = getDataString( args );
+			System.out.println(data); 
+			return Integer.parseInt(getResult(data)); 
+         }
+		 catch(Exception e){
+			 System.out.println("error"); 
             return 0;
          }
 	}
@@ -282,7 +305,20 @@ public class DB extends Application {
 	public static String getFlagStatus (Integer flag_id) {
 		try{
 			String[] args = new String[4];
-			args[0] = "method"; args[1] = "getFlagRecipients"; 
+			args[0] = "method"; args[1] = "getFlagStatus"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString();  
+			String data = getDataString( args );
+			return getResult(data); 
+         }
+		 catch(Exception e){
+            return "";
+         }
+	}
+	
+	public static String getFlagImage (Integer flag_id) {
+		try{
+			String[] args = new String[4];
+			args[0] = "method"; args[1] = "getFlagImage"; 
 			args[2] = "flag_id"; args[3] = flag_id.toString();  
 			String data = getDataString( args );
 			return getResult(data); 
@@ -341,6 +377,107 @@ public class DB extends Application {
          }
 		 catch(Exception e){
             return 0;
+         }
+	}
+	
+	public static Date getFlagPostTime (Integer flag_id) {
+		Date date = new Date(0);
+		try{
+			String[] args = new String[4];
+			args[0] = "method"; args[1] = "getFlagPostTime"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString();  
+			String data = getDataString( args );
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+		    date = df.parse(getResult(data)); 
+			return date; 
+         }
+		 catch(Exception e){
+            return date;
+         }
+	}
+	
+	public static Date getFlagExpireTime (Integer flag_id) {
+		Date date = new Date(0);
+		try{
+			String[] args = new String[4];
+			args[0] = "method"; args[1] = "getFlagExpireTime"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString();  
+			String data = getDataString( args );
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+		    date = df.parse(getResult(data)); 
+			return date; 
+         }
+		 catch(Exception e){
+            return date;
+         }
+	}
+	
+	public static Integer setFlagStatusActive (Integer flag_id) {
+		try{
+			String[] args = new String[4];
+			args[0] = "method"; args[1] = "setFlagStatusActive"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString();  
+			String data = getDataString( args );
+			return Integer.parseInt(getResult(data)); 
+         }
+		 catch(Exception e){
+            return 0;
+         }
+	}
+	
+	public static Integer setFlagStatusExpired (Integer flag_id) {
+		try{
+			String[] args = new String[4];
+			args[0] = "method"; args[1] = "setFlagStatusExpired"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString();  
+			String data = getDataString( args );
+			return Integer.parseInt(getResult(data)); 
+         }
+		 catch(Exception e){
+            return 0;
+         }
+	}
+	
+	public static Integer setFlagStatusPrivate (Integer flag_id) {
+		try{
+			String[] args = new String[4];
+			args[0] = "method"; args[1] = "setFlagStatusPrivate"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString();  
+			String data = getDataString( args );
+			return Integer.parseInt(getResult(data)); 
+         }
+		 catch(Exception e){
+            return 0;
+         }
+	}
+	
+	public static Integer setFlagStatusDeleted (Integer flag_id) {
+		try{
+			String[] args = new String[4];
+			args[0] = "method"; args[1] = "setFlagStatusDeleted"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString();  
+			String data = getDataString( args );
+			return Integer.parseInt(getResult(data)); 
+         }
+		 catch(Exception e){
+            return 0;
+         }
+	}
+	
+	public static Double getDistanceToFlag (Integer flag_id, Double latitude, Double longitude) {
+		try{
+			String[] args = new String[8];
+			args[0] = "method"; args[1] = "getDistanceToFlag"; 
+			args[2] = "flag_id"; args[3] = flag_id.toString(); 
+			args[4] = "latitude"; args[5] = latitude.toString();  
+			args[6] = "longitude"; args[7] = longitude.toString();  
+			String data = getDataString( args );
+			String answer = getResult(data); 
+			System.out.println("answer: " + answer); 
+			return Double.parseDouble(answer); 
+         }
+		 catch(Exception e){
+            return 0.0;
          }
 	}
 }
