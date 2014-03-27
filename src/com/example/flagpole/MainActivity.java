@@ -2,9 +2,12 @@ package com.example.flagpole;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,7 +26,9 @@ public class MainActivity extends Activity {
       lastNameField = (EditText)findViewById(R.id.lastNameField); 
       resultsView = (TextView)findViewById(R.id.resultsView);
       createResultsView = (TextView)findViewById(R.id.createResult);
+      Button viewMapButton = (Button) this.findViewById(R.id.viewMap);
    }
+   
    @Override
    public boolean onCreateOptionsMenu(Menu menu) {
       getMenuInflater().inflate(R.menu.main, menu);
@@ -42,6 +47,12 @@ public class MainActivity extends Activity {
 	   String firstName = firstNameField.getText().toString(); 
 	   String lastName = lastNameField.getText().toString();
 	   new CreateUserActivity(this,createResultsView).execute(username,password,firstName,lastName); 
+   }
+   
+   public void viewMap(View view)
+   {
+	   Intent mapIntent = new Intent(this, Map.class);
+	   startActivity(mapIntent);
    }
 
 }

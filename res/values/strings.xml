@@ -15,5 +15,10 @@
    <string name="Role">Not assigned</string>
    <string name="method">Login Method</string>
    <string name="Choose">Choose Method</string>
+   <string name="ok">OK</string>
+   <string name="cancel">Cancel</string>
+   <string name="flag_title">Flag Title</string>
+   <string name="flag_description">Flag Description</string>
+   <string name="new_flag">New Flag</string>
 	
 </resources>
