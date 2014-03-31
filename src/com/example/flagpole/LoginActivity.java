@@ -16,7 +16,7 @@ public class LoginActivity  extends AsyncTask<String,Void,String>{
    }
    @Override
    protected String doInBackground(String... arg0) {
-         return DB.getDistanceToFlag(Integer.parseInt(arg0[0]),34.5114,-87.5467).toString(); 
+         return DB.validateUser(arg0[0],arg0[1]).toString(); 
    }
    @Override
    protected void onPostExecute(String result){

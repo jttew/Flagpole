@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
       lastNameField = (EditText)findViewById(R.id.lastNameField); 
       resultsView = (TextView)findViewById(R.id.resultsView);
       createResultsView = (TextView)findViewById(R.id.createResult);
-      Button viewMapButton = (Button) this.findViewById(R.id.viewMap);
+      Button viewMapButtons = (Button) this.findViewById(R.id.viewMap);
    }
    
    @Override

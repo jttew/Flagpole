@@ -269,21 +269,21 @@ containing a value of this type.
         public static final int main=0x7f0a0001;
     }
     public static final class string {
-        public static final int App=0x7f060021;
-        public static final int Choose=0x7f060027;
-        public static final int LoginGet=0x7f06001f;
-        public static final int LoginPost=0x7f060020;
-        public static final int LoginRole=0x7f060023;
-        public static final int LoginStatus=0x7f060022;
-        public static final int Password=0x7f06001e;
-        public static final int Role=0x7f060025;
-        public static final int Status=0x7f060024;
-        public static final int Username=0x7f06001d;
-        public static final int action_forgot_password=0x7f060032;
-        public static final int action_settings=0x7f06001b;
-        public static final int action_sign_in_register=0x7f060030;
-        public static final int action_sign_in_short=0x7f060031;
-        public static final int app_name=0x7f06001a;
+        public static final int App=0x7f060022;
+        public static final int Choose=0x7f060028;
+        public static final int LoginGet=0x7f060020;
+        public static final int LoginPost=0x7f060021;
+        public static final int LoginRole=0x7f060024;
+        public static final int LoginStatus=0x7f060023;
+        public static final int Password=0x7f06001f;
+        public static final int Role=0x7f060026;
+        public static final int Status=0x7f060025;
+        public static final int Username=0x7f06001e;
+        public static final int action_forgot_password=0x7f060033;
+        public static final int action_settings=0x7f06001c;
+        public static final int action_sign_in_register=0x7f060031;
+        public static final int action_sign_in_short=0x7f060032;
+        public static final int app_name=0x7f06001b;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -307,7 +307,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f060014;
-        public static final int cancel=0x7f060029;
+        public static final int cancel=0x7f06002a;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -379,22 +379,25 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int error_field_required=0x7f060037;
-        public static final int error_incorrect_password=0x7f060036;
-        public static final int error_invalid_email=0x7f060034;
-        public static final int error_invalid_password=0x7f060035;
-        public static final int flag_description=0x7f06002b;
-        public static final int flag_title=0x7f06002a;
-        public static final int hello_world=0x7f06001c;
-        public static final int login_progress_signing_in=0x7f060033;
-        public static final int method=0x7f060026;
-        public static final int new_flag=0x7f06002c;
-        public static final int ok=0x7f060028;
+        public static final int error_field_required=0x7f060038;
+        public static final int error_incorrect_password=0x7f060037;
+        public static final int error_invalid_email=0x7f060035;
+        public static final int error_invalid_password=0x7f060036;
+        public static final int flag_description=0x7f06002c;
+        public static final int flag_title=0x7f06002b;
+        public static final int hello_world=0x7f06001d;
+        /**  Location client code resources (prefix with location_client) 
+         */
+        public static final int location_client_powered_by_google=0x7f06001a;
+        public static final int login_progress_signing_in=0x7f060034;
+        public static final int method=0x7f060027;
+        public static final int new_flag=0x7f06002d;
+        public static final int ok=0x7f060029;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f06002e;
-        public static final int prompt_password=0x7f06002f;
-        public static final int title_activity_login=0x7f06002d;
+        public static final int prompt_email=0x7f06002f;
+        public static final int prompt_password=0x7f060030;
+        public static final int title_activity_login=0x7f06002e;
     }
     public static final class style {
         /** 

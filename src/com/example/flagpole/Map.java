@@ -1,11 +1,13 @@
 package com.example.flagpole;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -19,10 +21,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Point;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -36,13 +40,13 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
 //, NoticeDialogFragment.NoticeDialogListener
 {
 	 //Global variable to hold the current location
-    //Location mCurrentLocation;
-    //LocationClient mLocationClient;
+    Location mCurrentLocation;
+    LocationClient mLocationClient;
     //static final LatLng HAMBURG = new LatLng(53.558, 9.927);
     //static final LatLng KIEL = new LatLng(53.551, 9.993);
+    private LocationManager locationManager;
     private static GoogleMap map;
     private static LatLng currentPoint;
-
     /*
     //Define a request code to send to Google Play services
     //This code is returned in Activity.onActivityResul
@@ -189,29 +193,41 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
         //Gets the latitude and longitude for the center of the map
         double centerLat = map.getProjection().fromScreenLocation(center).latitude;
         double centerLong = map.getProjection().fromScreenLocation(center).longitude;
-        List<Integer> flagIds = DB.getFlagsInRadius(centerLat, centerLong, 1000000000);
+        Log.d("centerLat: ", String.valueOf(centerLat)); 
+        Log.d("centerLong: ", String.valueOf(centerLong)); 
+        List<Integer> flagIds = DB.getFlagsInRadius(33.21262, -87.54256, 5000);
+     //   locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+     //   locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
         addFlagsFromDB(flagIds);
-        //LocationClient mLocationClient = new LocationClient(this, this, this);
-        //mCurrentLocation = mLocationClient.getLastLocation();
-        //map.moveCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 15));
+       // LocationClient mLocationClient = new LocationClient(this, this, this);
+       // mCurrentLocation = mLocationClient.getLastLocation();
+       // map.moveCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 15));
        // Marker hamburg = map.addMarker(new MarkerOptions().position(HAMBURG).title("HAMBURG"));
         //Marker kiel = map.addMarker(new MarkerOptions().position(KIEL).title("Kiel").snippet("Kiel is cool").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher)));
         //map.moveCamera(CameraUpdateFactory.newLatLngZoom(HAMBURG, 15));
         //map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
     
+ 
+    
     protected void addFlagsFromDB(List<Integer> flagIds)
     {
     	Log.d("Debug", "it got here0");
+    	Log.d("flagIds: ", flagIds.toString()); 
     	int i = 0;
     	while (i < flagIds.size())
     	{
     		String flagTitle = DB.getFlagTitle(flagIds.get(i));
+    		System.out.println("title: " + flagTitle); 
     		Double flagLat = DB.getFlagLatitude(flagIds.get(i));
+    		System.out.println("lat: " + flagLat.toString()); 
     		Double flagLong = DB.getFlagLongitude(flagIds.get(i));
+    		System.out.println("long: " + flagLong.toString()); 
     		LatLng flagLatLng = new LatLng(flagLat, flagLong);
-    		map.addMarker(new MarkerOptions().position(flagLatLng).title(flagTitle).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+    		String flagContent = DB.getFlagContent(flagIds.get(i)); 
+    		map.addMarker(new MarkerOptions().position(flagLatLng).title(flagTitle).snippet(flagContent).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
     		Log.d("Debug", "it got here1");
+    		i++; 
     	}
     }
     
@@ -251,8 +267,8 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
 
     public static void addFlagToMap(String title, String description)
     {
-        Marker flag = map.addMarker(new MarkerOptions().position(currentPoint).title(title).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        DB.createFlag(0, title, description, 100, "", flag.getPosition().latitude, flag.getPosition().longitude);
+        Marker flag = map.addMarker(new MarkerOptions().position(currentPoint).title(title).snippet(description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        DB.createFlag(0, title, description, 150, "", flag.getPosition().latitude, flag.getPosition().longitude);
         
     }
 
