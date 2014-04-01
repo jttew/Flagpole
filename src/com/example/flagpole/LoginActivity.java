@@ -1,25 +1,43 @@
 package com.example.flagpole;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import android.widget.TextView;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-public class LoginActivity  extends AsyncTask<String,Void,String>{
+public class LoginActivity extends Activity {
+	
+	EditText userField, passField;
+	Button submitButton;
 
-   private TextView resultsView;
-   public LoginActivity(Context context, TextView resultsView) {
-      this.resultsView = resultsView;
-   }
-
-   protected void onPreExecute(){
-
-   }
-   @Override
-   protected String doInBackground(String... arg0) {
-         return DB.validateUser(arg0[0],arg0[1]).toString(); 
-   }
-   @Override
-   protected void onPostExecute(String result){
-      this.resultsView.setText(result);
-   }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login);
+		
+		userField = (EditText) findViewById(R.id.usernameEditText);
+		passField = (EditText) findViewById(R.id.passwordEditText);
+		submitButton = (Button) findViewById(R.id.submitButton1);
+		
+		submitButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				String username = userField.getText().toString();
+				String password = passField.getText().toString();
+				Log.d("username", username);
+				Log.d("password", password);
+			}
+		});
+		
+		
+		
+	}
+	
+	
+	
 }

@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-      usernameField = (EditText)findViewById(R.id.editText1);
+      usernameField = (EditText)findViewById(R.id.usernameEditText);
       passwordField = (EditText)findViewById(R.id.editText2);
       firstNameField = (EditText)findViewById(R.id.firstNameField); 
       lastNameField = (EditText)findViewById(R.id.lastNameField); 
@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
    public void login(View view){
       String username = usernameField.getText().toString();
       String password = passwordField.getText().toString();
-      new LoginActivity(this,resultsView).execute(username,password);
+      new Login(this,resultsView).execute(username,password);
    }
   
    public void createUser(View view) {
