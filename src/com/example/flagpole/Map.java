@@ -24,6 +24,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationManager;
@@ -42,11 +43,13 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
 	 //Global variable to hold the current location
     Location mCurrentLocation;
     LocationClient mLocationClient;
+    public static final String USER_DATA = "UserData";
     //static final LatLng HAMBURG = new LatLng(53.558, 9.927);
     //static final LatLng KIEL = new LatLng(53.551, 9.993);
     private LocationManager locationManager;
     private static GoogleMap map;
     private static LatLng currentPoint;
+    private static Integer user_id; 
     /*
     //Define a request code to send to Google Play services
     //This code is returned in Activity.onActivityResul
@@ -187,18 +190,10 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setOnMapLongClickListener(this);
         map.setMyLocationEnabled(true);
+        SharedPreferences settings = getSharedPreferences(USER_DATA, 0);
+        user_id = Integer.parseInt(settings.getString("user_id", "0"));
         //Gets the center of the map
-        Display display = getWindowManager().getDefaultDisplay();
-        Point center = new Point(display.getWidth()/2, display.getHeight()/2);
         //Gets the latitude and longitude for the center of the map
-        double centerLat = map.getProjection().fromScreenLocation(center).latitude;
-        double centerLong = map.getProjection().fromScreenLocation(center).longitude;
-        Log.d("centerLat: ", String.valueOf(centerLat)); 
-        Log.d("centerLong: ", String.valueOf(centerLong)); 
-        List<Integer> flagIds = DB.getFlagsInRadius(33.21262, -87.54256, 5000);
-     //   locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-     //   locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
-        addFlagsFromDB(flagIds);
        // LocationClient mLocationClient = new LocationClient(this, this, this);
        // mCurrentLocation = mLocationClient.getLastLocation();
        // map.moveCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, 15));
@@ -257,10 +252,13 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
     @Override
     public void onMapLongClick(LatLng point)
     {
-        DialogFragment newFragment = new FlagDialogBox();
-        newFragment.show(getFragmentManager(), "Flag");
-        //showNoticeDialog();
-        currentPoint = point;
+    	if (user_id != 0) {
+    		DialogFragment newFragment = new FlagDialogBox();
+            newFragment.show(getFragmentManager(), "Flag");
+            //showNoticeDialog();
+            currentPoint = point;
+    	}
+        
         //map.addMarker(new MarkerOptions().position(point).title("marker").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         //map.addMarker(new MarkerOptions().position(point).title("marker").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
     }
@@ -268,20 +266,29 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
     public static void addFlagToMap(String title, String description)
     {
         Marker flag = map.addMarker(new MarkerOptions().position(currentPoint).title(title).snippet(description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        DB.createFlag(0, title, description, 150, "", flag.getPosition().latitude, flag.getPosition().longitude);
-        
+        DB.createFlag(user_id, title, description, 150, "", flag.getPosition().latitude, flag.getPosition().longitude);
     }
 
-    /*
+    
     //Called when the Activity becomes visible
     @Override
     protected void onStart()
     {
         super.onStart();
-        //Connect the client
-        mLocationClient.connect();
+     //   mLocationClient.connect();
+        /*
+        Display display = getWindowManager().getDefaultDisplay();
+        Point center = new Point(display.getWidth()/2, display.getHeight()/2);
+        double centerLat = map.getProjection().fromScreenLocation(center).latitude;
+        double centerLong = map.getProjection().fromScreenLocation(center).longitude;
+        Log.d("centerLat: ", String.valueOf(centerLat)); 
+        Log.d("centerLong: ", String.valueOf(centerLong));  */
+        List<Integer> flagIds = DB.getFlagsInRadius(33.21262, -87.54256, 5000);
+     //   locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+     //   locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
+        addFlagsFromDB(flagIds);
     }
-    
+    /*
     //Called when the Activity is no longer visible.
     @Override
     protected void onStop()

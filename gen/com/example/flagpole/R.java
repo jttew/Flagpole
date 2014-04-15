@@ -221,8 +221,8 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f02001c;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f05001e;
-        public static final int action_settings=0x7f05001f;
+        public static final int action_forgot_password=0x7f05001f;
+        public static final int action_settings=0x7f050020;
         public static final int button2=0x7f05000f;
         public static final int createResult=0x7f050017;
         public static final int createUser=0x7f050016;
@@ -234,9 +234,9 @@ containing a value of this type.
         public static final int hybrid=0x7f050004;
         public static final int lastNameField=0x7f050014;
         public static final int lastNameView=0x7f050013;
-        public static final int log_in=0x7f05001a;
-        public static final int log_out=0x7f05001b;
-        public static final int map=0x7f05001d;
+        public static final int log_in=0x7f05001b;
+        public static final int log_out=0x7f05001c;
+        public static final int map=0x7f05001e;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int passwordEditText=0x7f05000a;
@@ -249,10 +249,11 @@ containing a value of this type.
         public static final int textView3=0x7f05000d;
         public static final int textView4=0x7f050010;
         public static final int textView8=0x7f050018;
+        public static final int userName=0x7f05001a;
         public static final int usernamTextView=0x7f050007;
         public static final int usernameEditText=0x7f050008;
         public static final int viewMap=0x7f050019;
-        public static final int view_map=0x7f05001c;
+        public static final int view_map=0x7f05001d;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
