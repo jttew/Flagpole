@@ -11,34 +11,6 @@ import android.os.AsyncTask;
 public class DBExecute extends AsyncTask<String, Void, String> {
 	
 	public static String link = "http://billyswifty.com/flagpole.php";
-	
-	/*
-	public String getResult( String data ) {
-		try{
-			URL url = new URL(link);
-            URLConnection conn = url.openConnection(); 
-            conn.setDoOutput(true); 
-            OutputStreamWriter wr = new OutputStreamWriter
-            (conn.getOutputStream()); 
-            wr.write( data ); 
-            wr.flush(); 
-            BufferedReader reader = new BufferedReader
-            (new InputStreamReader(conn.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-            // Read Server Response
-            while((line = reader.readLine()) != null)
-            {
-               sb.append(line);
-               break;
-            }
-            return sb.toString();
-         }
-		catch(Exception e) {
-			e.printStackTrace();
-			return "connection error"; 
-		}
-	} */
 
 	@Override
 	public String doInBackground(String... params) {

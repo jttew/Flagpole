@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +41,7 @@ public class LoginActivity extends Activity {
 		        if ( result == 0) {
 		        	Context context = getApplicationContext();
 		        	CharSequence text = "Invalid email or password";
-		        	Toast toast = Toast.makeText(context, text, 3000);
+		        	Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
 		        	toast.show();
 		        }
 		        else {

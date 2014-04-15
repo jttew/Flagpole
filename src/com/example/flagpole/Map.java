@@ -1,16 +1,16 @@
 package com.example.flagpole;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+//import com.google.android.gms.common.ConnectionResult;
+//import com.google.android.gms.common.GooglePlayServicesClient;
+//import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
+//import com.google.android.gms.maps.CameraUpdate;
+//import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+//import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -18,21 +18,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.app.Activity;
-import android.app.Dialog;
+//import android.app.Activity;
+//import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentSender;
+//import android.content.Context;
+//import android.content.Intent;
+//import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.graphics.Point;
+//import android.graphics.Point;
 import android.location.Location;
-import android.location.LocationManager;
+//import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.Display;
-import android.widget.Toast;
+//import android.util.Log;
+//import android.view.Display;
+//import android.widget.Toast;
 
 
 public class Map extends FragmentActivity implements OnMapLongClickListener
@@ -46,7 +46,7 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
     public static final String USER_DATA = "UserData";
     //static final LatLng HAMBURG = new LatLng(53.558, 9.927);
     //static final LatLng KIEL = new LatLng(53.551, 9.993);
-    private LocationManager locationManager;
+//  private LocationManager locationManager;
     private static GoogleMap map;
     private static LatLng currentPoint;
     private static Integer user_id; 
@@ -207,21 +207,15 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
     
     protected void addFlagsFromDB(List<Integer> flagIds)
     {
-    	Log.d("Debug", "it got here0");
-    	Log.d("flagIds: ", flagIds.toString()); 
     	int i = 0;
     	while (i < flagIds.size())
     	{
     		String flagTitle = DB.getFlagTitle(flagIds.get(i));
-    		System.out.println("title: " + flagTitle); 
     		Double flagLat = DB.getFlagLatitude(flagIds.get(i));
-    		System.out.println("lat: " + flagLat.toString()); 
     		Double flagLong = DB.getFlagLongitude(flagIds.get(i));
-    		System.out.println("long: " + flagLong.toString()); 
     		LatLng flagLatLng = new LatLng(flagLat, flagLong);
     		String flagContent = DB.getFlagContent(flagIds.get(i)); 
     		map.addMarker(new MarkerOptions().position(flagLatLng).title(flagTitle).snippet(flagContent).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-    		Log.d("Debug", "it got here1");
     		i++; 
     	}
     }
