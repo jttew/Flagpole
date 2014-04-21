@@ -10,6 +10,7 @@ import com.google.android.gms.location.LocationClient;
 //import com.google.android.gms.maps.CameraUpdate;
 //import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 //import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -25,6 +26,7 @@ import android.app.DialogFragment;
 //import android.content.Intent;
 //import android.content.IntentSender;
 import android.content.SharedPreferences;
+//import android.graphics.Color;
 //import android.graphics.Point;
 import android.location.Location;
 //import android.location.LocationManager;
@@ -33,6 +35,10 @@ import android.support.v4.app.FragmentActivity;
 //import android.util.Log;
 //import android.view.Display;
 //import android.widget.Toast;
+//import android.text.SpannableString;
+//import android.text.style.ForegroundColorSpan;
+//import android.view.View;
+//import android.widget.TextView;
 
 
 public class Map extends FragmentActivity implements OnMapLongClickListener
@@ -214,8 +220,17 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
     		Double flagLat = DB.getFlagLatitude(flagIds.get(i));
     		Double flagLong = DB.getFlagLongitude(flagIds.get(i));
     		LatLng flagLatLng = new LatLng(flagLat, flagLong);
-    		String flagContent = DB.getFlagContent(flagIds.get(i)); 
-    		map.addMarker(new MarkerOptions().position(flagLatLng).title(flagTitle).snippet(flagContent).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+    		String flagContent = DB.getFlagContent(flagIds.get(i));
+    		Integer flagAuthor = DB.getFlagAuthor(flagIds.get(i)); 
+    		
+    		if (user_id == flagAuthor) {
+    			map.addMarker(new MarkerOptions().position(flagLatLng).title(flagTitle).snippet(flagContent).icon(BitmapDescriptorFactory.fromResource(R.drawable.flag_icon6)));
+    		}
+    		else {
+    			map.addMarker(new MarkerOptions().position(flagLatLng).title(flagTitle).snippet(flagContent).icon(BitmapDescriptorFactory.fromResource(R.drawable.flag_icon5)));
+    		}
+    		//map.addMarker(new MarkerOptions().position(flagLatLng).title(flagTitle).snippet(flagContent).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+    		
     		i++; 
     	}
     }
@@ -259,7 +274,7 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
 
     public static void addFlagToMap(String title, String description)
     {
-        Marker flag = map.addMarker(new MarkerOptions().position(currentPoint).title(title).snippet(description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        Marker flag = map.addMarker(new MarkerOptions().position(currentPoint).title(title).snippet(description).icon(BitmapDescriptorFactory.fromResource(R.drawable.flag_icon6)));
         DB.createFlag(user_id, title, description, 150, "", flag.getPosition().latitude, flag.getPosition().longitude);
     }
 
@@ -282,6 +297,8 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
      //   locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
         addFlagsFromDB(flagIds);
     }
+    
+
     /*
     //Called when the Activity is no longer visible.
     @Override
