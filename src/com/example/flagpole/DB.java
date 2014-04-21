@@ -204,6 +204,22 @@ public class DB extends Application {
          }
 	}
 	
+	public static Integer getFlagByCoords ( Float latitude, Float longitude ) {
+		try {
+			DBExecute dbe = new DBExecute(); 
+			String[] args = new String[6]; 
+			args[0] = "method"; args[1] = "getFlagByCoords"; 
+			args[2] = "latitude"; args[3] = latitude.toString();
+			args[4] = "longitude"; args[5] = longitude.toString();
+			String data = getDataString( args );
+			System.out.println("datastring : " + data); 
+			return Integer.parseInt(dbe.execute(data).get());  
+		}
+		catch(Exception e){
+            return 0;
+         }
+	}
+	
 	public static String getFlagContent (Integer flag_id) {
 		try{
 			DBExecute dbe = new DBExecute(); 

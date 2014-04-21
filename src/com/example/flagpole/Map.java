@@ -8,6 +8,7 @@ import com.google.android.gms.location.LocationClient;
 //import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 //import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 //import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 //import android.app.Activity;
 //import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 //import android.content.Context;
 //import android.content.Intent;
 //import android.content.IntentSender;
@@ -65,7 +67,6 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
 		  public View getInfoWindow(Marker marker) {
 		   return null;
 		  }
-	  
 	 }
 
     Location mCurrentLocation;
@@ -74,9 +75,12 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
     private static GoogleMap map;
     private static LatLng currentPoint;
     private static Integer user_id; 
+    private static Marker clicked_marker; 
+    private static boolean clicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	clicked = false; 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_layout);
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -85,8 +89,23 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
         SharedPreferences settings = getSharedPreferences(USER_DATA, 0);
         user_id = Integer.parseInt(settings.getString("user_id", "0"));
         map.setInfoWindowAdapter(new MyInfoWindowAdapter());
+        
+        map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+               clicked = true;
+               clicked_marker = marker; 
+               Intent intent = new Intent(Map.this,ViewFlag.class);
+               intent.putExtra("latitude", (float) marker.getPosition().latitude); 
+               intent.putExtra("longitude", (float) marker.getPosition().longitude);
+               startActivity(intent);
+            }
+        });  
+        
+        List<Integer> flagIds = DB.getFlagsInRadius(33.21262, -87.54256, 5000);
+        addFlagsFromDB(flagIds);
     }
-   
+    
     protected void addFlagsFromDB(List<Integer> flagIds)
     {
     	int i = 0;
@@ -131,12 +150,25 @@ public class Map extends FragmentActivity implements OnMapLongClickListener
         DB.createFlag(user_id, title, description, 150, "", flag.getPosition().latitude, flag.getPosition().longitude);
         flag.setSnippet(description + "\n\nScore: " + "0" + "\nPosted: " + time_posted_string); 
     }
+    
+    private void update_score(Marker m) {
+    	Float flag_lat = (float) m.getPosition().latitude; 
+    	Float flag_long = (float) m.getPosition().longitude; 
+    	Integer this_flag = DB.getFlagByCoords(flag_lat, flag_long);
+    	Integer new_score = DB.getFlagScore(this_flag); 
+    	Date time_posted = DB.getFlagPostTime(this_flag); 
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM dd, yyyy @ hh:mm a");
+		String time_posted_string = DATE_FORMAT.format(time_posted);
+		String flag_content = DB.getFlagContent(this_flag); 
+    	m.setSnippet(flag_content + "\n\nScore: " + new_score.toString() + "\nPosted: " + time_posted_string);
+    }
 
     @Override
     protected void onStart()
     {
         super.onStart();
-        List<Integer> flagIds = DB.getFlagsInRadius(33.21262, -87.54256, 5000);
-        addFlagsFromDB(flagIds);
+        if (clicked) {
+        	update_score(clicked_marker); 
+        }   	
     }
 }

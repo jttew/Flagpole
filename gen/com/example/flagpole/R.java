@@ -227,9 +227,12 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f020022;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f050013;
-        public static final int action_settings=0x7f050014;
+        public static final int action_forgot_password=0x7f050017;
+        public static final int action_settings=0x7f050018;
+        public static final int down_vote=0x7f050016;
+        public static final int flag_content=0x7f050013;
         public static final int flag_description=0x7f050006;
+        public static final int flag_score=0x7f050014;
         public static final int flag_title=0x7f050005;
         public static final int hybrid=0x7f050004;
         public static final int log_in=0x7f05000d;
@@ -244,6 +247,7 @@ containing a value of this type.
         public static final int submitButton1=0x7f05000b;
         public static final int terrain=0x7f050003;
         public static final int title=0x7f050010;
+        public static final int up_vote=0x7f050015;
         public static final int userName=0x7f05000c;
         public static final int usernamTextView=0x7f050007;
         public static final int usernameEditText=0x7f050008;
@@ -258,6 +262,7 @@ containing a value of this type.
         public static final int flag_dialog=0x7f030002;
         public static final int info_box=0x7f030003;
         public static final int map_layout=0x7f030004;
+        public static final int view_flag=0x7f030005;
     }
     public static final class menu {
         public static final int login=0x7f0a0000;
