@@ -62,8 +62,6 @@ public class DB extends Application {
 			args[6] = "first_name"; args[7] = first_name; 
 			args[8] = "last_name"; args[9] = last_name; 
 			String data = getDataString( args );
-		//	System.out.println("data: " + data); 
-		//	System.out.println("result: " + dbe.execute(data).get());
 			return Integer.parseInt(dbe.execute(data).get()); 
          }
 		 catch(Exception e){
@@ -161,7 +159,6 @@ public class DB extends Application {
 			args[6] = "radius"; args[7] = radius.toString(); 
 			String data = getDataString( args );
 			String answer = dbe.execute(data).get(); 
-			System.out.println("answer: " + answer); 
 			String[] answers = answer.split(","); 
 			for (int i = 0; i < answers.length; i++ ) {
 				results.add(Integer.parseInt(answers[i])); 
@@ -194,7 +191,6 @@ public class DB extends Application {
 	}
 	
 	public static String getFlagTitle (Integer flag_id) {
-		System.out.println("in getFlagTitle"); 
 		try{
 			DBExecute dbe = new DBExecute(); 
 			String[] args = new String[4];

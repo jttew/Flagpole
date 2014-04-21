@@ -19,8 +19,7 @@ public class DBExecute extends AsyncTask<String, Void, String> {
             URLConnection conn = url.openConnection(); 
             conn.setDoOutput(true); 
             OutputStreamWriter wr = new OutputStreamWriter
-            (conn.getOutputStream()); 
-            System.out.println("params[0]: " + params[0]);
+            (conn.getOutputStream());
             wr.write( params[0] ); 
             wr.flush(); 
             BufferedReader reader = new BufferedReader

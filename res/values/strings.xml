@@ -20,5 +20,7 @@
    <string name="flag_title">Flag Title</string>
    <string name="flag_description">Flag Description</string>
    <string name="new_flag">New Flag</string>
+   <string name="UpVote">+1</string>
+   <string name="DownVote">-1</string>
 	
 </resources>
