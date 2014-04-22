@@ -8,13 +8,13 @@
     tools:context=".LoginActivity">
 
     <TextView
-        android:id="@+id/usernamTextView"
+        android:id="@+id/emailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username" />
+        android:text="Email" />
 
     <EditText
-        android:id="@+id/usernameEditText"
+        android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 		android:ems="10"
@@ -39,5 +39,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit" />
+    
+    <Button
+        android:id="@+id/createAccountActivityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CreateAccount" />
+    
 
 </LinearLayout>
+
+

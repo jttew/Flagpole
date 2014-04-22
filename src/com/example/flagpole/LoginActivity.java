@@ -13,25 +13,25 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 	
-	EditText userField, passField;
+	EditText emailField, passField;
 	public static final String USER_DATA = "UserData";
-	Button submitButton;
+	Button submitButton, createAccountButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		userField = (EditText) findViewById(R.id.usernameEditText);
+		emailField = (EditText) findViewById(R.id.emailEditText);
 		passField = (EditText) findViewById(R.id.passwordEditText);
 		submitButton = (Button) findViewById(R.id.submitButton1);
+		createAccountButton = (Button) findViewById(R.id.createAccountActivityButton);
 		
 		submitButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				String username = userField.getText().toString();
+				String username = emailField.getText().toString();
 				String password = passField.getText().toString();
 				Integer result = DB.validateUser(username, password);
 				SharedPreferences settings = getSharedPreferences(USER_DATA, 0);
@@ -48,6 +48,14 @@ public class LoginActivity extends Activity {
 		        	Intent mapIntent = new Intent(LoginActivity.this, MainMenuActivity.class);
 					startActivity(mapIntent);
 		        }
+			}
+		});
+		
+		createAccountButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent createAccountIntent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+				startActivity(createAccountIntent);
 			}
 		});
 		
